@@ -9,15 +9,15 @@ tags:
 [原文地址](http://www.studytrails.com/java/java8/java8_date_and_time/)  
 #### 简介
 Java8 带来了处理日期和时间需要的方式。几乎所有人都有使用Java Date 痛苦的经历。有很多人因此切换到了Joda Time，但是Java8现在有了更清晰，更可扩展的API。在我们学习API钱，先了解一下日期和时间的概念。Java日期遵循[公历](http://en.wikipedia.org/wiki/Gregorian_calendar)规则。表示时间和日期的类放在`java.time`包中。在这个包里比较重要的API有：  
-  * **java.time.Period**: 表示日期时期时间中的日期。表示日期部分的，年、月、日。例如：1年，两个月，5天。
-  * **java.time.Duration**: 表示日期时间中的时间。 表示时间的，秒，纳秒。例如：5秒。
-  * **java.time.Instant**: 表示时间线的一瞬间。保存的是UNIX时间戳的秒数，同时有另一个字段保存纳秒。
-  * **java.time.LocalDate**: 保存日期时间中的日期，用年-月-日表示。不包含时区，是不可变类。
-  * **java.time.LocalTime**: 保存日期时间中的时间，不包含时区。
-  * **java.time.LocalDateTime**: 保存LocalDate和LocalTime，不包含时区。
-  * **java.time.ZoneDateTime**: 保存LocalDateTIme，使用`ZoneOffset`保存时区信息。可以访问ZoneRule来转换本地时间。
-  * **java.time.ZoneOffset**: 保存时区相对于UTC的位移，时区信息保存在ZoneId中。
-  * **java.time.OffsetDateTime**: 通过位移来表示本地时间。这个类不包含时区规则。    
+  *  **java.time.Period**: 表示日期时期时间中的日期。表示日期部分的，年、月、日。例如：1年，两个月，5天。
+  *  **java.time.Duration**: 表示日期时间中的时间。 表示时间的，秒，纳秒。例如：5秒。
+  *  **java.time.Instant**: 表示时间线的一瞬间。保存的是UNIX时间戳的秒数，同时有另一个字段保存纳秒。
+  *  **java.time.LocalDate**: 保存日期时间中的日期，用年-月-日表示。不包含时区，是不可变类。
+  *  **java.time.LocalTime**: 保存日期时间中的时间，不包含时区。
+  *  **java.time.LocalDateTime**: 保存LocalDate和LocalTime，不包含时区。
+  *  **java.time.ZoneDateTime**: 保存LocalDateTIme，使用`ZoneOffset`保存时区信息。可以访问ZoneRule来转换本地时间。
+  *  **java.time.ZoneOffset**: 保存时区相对于UTC的位移，时区信息保存在ZoneId中。
+  *  **java.time.OffsetDateTime**: 通过位移来表示本地时间。这个类不包含时区规则。    
 
 ##### 创建本地日期
 
