@@ -33,6 +33,7 @@ tags:
 ##### 测试项目
 为了理解Spring Web MVC是如何工作的，可以先实现一个简单的Login功能的。创建一个由`@Controller`来修饰的类`InternalController`，这个类包含一个Get的映射。  
 `hello()`函数没有参数。返回一个由Spring解释的视图名字的字符串。（在本例中是`login.html`）  
+
 ```Java
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -42,7 +43,8 @@ public String hello() {
 }
 ``` 
 为了处理用户登陆逻辑，创建另一个接受POST请求的带有Login数据的方法。然后根据处理结果返回成功或者失败页面。
-注意，`login()`函数接受一个领域对象作为参数，返回的是`ModelAndView`对象。
+注意，`login()`函数接受一个领域对象作为参数，返回的是`ModelAndView`对象。  
+
 ```Java
 @PostMapping("/login")
 public ModelAndView login(LoginData loginData) {
