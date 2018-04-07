@@ -9,7 +9,7 @@ tags:
 
 [原文地址](https://stackify.com/spring-mvc/)  
 ##### 初始工程
-这片文章中将使用最新的Spring Framework 5框架。主要关注的是Spring的经典Web技术栈，这套技术从最开始的Spring版本就开始支持，并且知道现在仍然是构建Spring Web应用的主要方式。  
+这篇文章中将使用最新的Spring Framework 5框架。主要关注的是Spring的经典Web技术栈，这套技术从最开始的Spring版本就开始支持，并且知道现在仍然是构建Spring Web应用的主要方式。  
 使用Spring Boot和其他starter来设置初始工程。xml配置如下：
 ```xml
 <parent>
