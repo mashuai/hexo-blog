@@ -70,5 +70,5 @@ disqus_shortname: jabfor
 ## Docs: http://hexo.io/docs/deployment.html
 deploy: 
   type: git
-  repository: git@git.coding.net:mashuai/mashuai.coding.me.git
+  repository: git@github.com:mashuai/mashuai.github.io.git
   branch: master
