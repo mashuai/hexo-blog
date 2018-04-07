@@ -41,7 +41,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public String hello() {
     return "login";
 }
-``` 
+```
+
 为了处理用户登陆逻辑，创建另一个接受POST请求的带有Login数据的方法。然后根据处理结果返回成功或者失败页面。
 注意，`login()`函数接受一个领域对象作为参数，返回的是`ModelAndView`对象。  
 
