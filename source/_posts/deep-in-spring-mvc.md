@@ -29,7 +29,7 @@ tags:
         <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
 </dependencies>
-```    
+```
 
 ##### 测试项目
 为了理解Spring Web MVC是如何工作的，可以先实现一个简单的Login功能的。创建一个由`@Controller`来修饰的类`InternalController`，这个类包含一个Get的映射。  
