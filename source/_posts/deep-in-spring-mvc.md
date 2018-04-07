@@ -62,7 +62,7 @@ public ModelAndView login(LoginData loginData) {
 将它们合并起来是为了方便，这样controller的方法就可以同时返回这两个了。
 使用`Thymeleaf`作为模版引擎来渲染页面。  
 ##### Java Web应用的基础-Servlet
-当你在浏览器里打入`http://localhost:8080/ `，然后按回车键，请求到达服务器的时候到底发生了什么？是如何在浏览器中看到这个web请求的数据的？
+当你在浏览器里键入`http://localhost:8080/ `，然后按回车键，请求到达服务器的时候到底发生了什么？是如何在浏览器中看到这个web请求的数据的？
 因为这个项目是一个简单的Spring Boot应用，所以可以通过`Spring5Application`来运行。
 Spring Boot默认使用[Apache Tomcat](http://stackify.com/tomcat-performance-monitoring/)运行程序，运行成功后可能会看到如下的日志：
 ```
