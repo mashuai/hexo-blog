@@ -68,6 +68,7 @@ public ModelAndView login(LoginData loginData) {
 当你在浏览器里键入`http://localhost:8080/ `，然后按回车键，请求到达服务器的时候到底发生了什么？是如何在浏览器中看到这个web请求的数据的？
 因为这个项目是一个简单的Spring Boot应用，所以可以通过`Spring5Application`来运行。
 Spring Boot默认使用[Apache Tomcat](http://stackify.com/tomcat-performance-monitoring/)运行程序，运行成功后可能会看到如下的日志：
+
 ```
 2017-10-16 20:36:11.626  INFO 57414 --- [main] 
   o.s.b.w.embedded.tomcat.TomcatWebServer  : 
@@ -81,6 +82,7 @@ Spring Boot默认使用[Apache Tomcat](http://stackify.com/tomcat-performance-mo
   org.apache.catalina.core.StandardEngine  : 
   Starting Servlet Engine: Apache Tomcat/8.5.23
 ```
+
 因为Tomcat是一个Servlet容器，所以几乎所有的HTTP请求都是由Java Servlet处理的。自然的Spring Web的入口就是一个Servlet。
 Servlet是所有Java Web应用的核心组件；它非常的低成，并且没有暴露任何具体的编程模式，例如MVC。
 一个HTTP的Servelt只能接受HTTP请求，处理请求后返回响应。

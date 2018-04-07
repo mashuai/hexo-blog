@@ -21,94 +21,94 @@ Java8 带来了处理日期和时间需要的方式。几乎所有人都有使�
 
 ##### 创建本地日期
 
-```
+```Java
 Instant now = Instant.now();
 //2014-09-20T14:32:33.646Z
 ```
 这个语句创建了一个新的时间实例。这个实例没有时区信息，如果打印这个实例将会打印UTC时间。  
 ##### 打印Unix时间戳
-```
+```Java
 System.out.Println(now.getEpochSecond());
 // prints 1411137153
 ```
 Unix时间戳是从1970-01-01T00:00:00Z开始的。
 #####  Instant 加时间
-```
+```Java
 Instant tomorrow = now.plus(1, ChronoUnit.DAYS);
 // prints 2014-09-20T14:32:33.646Z
 ```
 这个函数允许添加时间间隔。时间间隔可以是：NANOS, MICROS, MILLIS, SECONDS, MINUTES, HOURS, HALF_DAYS, DAYS。
 ##### Instant 减时间
-```
+```Java
 Instant yesterday = now.minus(1,ChronoUnit.HALF_DAYS);
 // prints 2014-09-20T03:38:33.860Z
 ```
 这个minus函数允许从Instant中减时间，时间间隔同plus。
 ##### 对比两个Instant
-```
+```Java
 System.out.println(now.compareTo(tomorrow)); // prints -1
 ```
 对比函数可以比较两个日期，如果参数在比较的Instant之后则返回-1，之前则返回1。
 ##### 检查Instant是否在另一个Instant之后
-```
+```Java
 System.out.println(now.isAfter(yesterday));// prints true
 ```
 ##### 创建LocalDateTime
-```
+```Java
 LocalDateTime localDateTime = LocalDateTime.now();
 System.out.println(localDateTime); // prints 2014-09-28T13:01:40.556
 ```
 注意，这个得到的是本地时区的时间
 ##### 将LocalDateTime转换成其他时区时间
-```
+```Java
 System.out.println(localDateTime.atZone(ZoneId.of("America/New_York")));
 // prints 2014-09-28T13:07:31.207-04:00[America/New_York]
 ```
 这个将会创建一个新的ZonedDateTime
 ##### 从DateTime中获取星期
-```
+```Java
 System.out.println(DayOfWeek.from(localDateTime));
 // prints SUNDAY.
 // (yes, i am working on a sunday :-( ) ))
 ```
 ##### 从DateTime中获取一年中第几天
-```
+```Java
 System.out.println(localDateTime.get(ChronoField.DAY_OF_YEAR));
 // prints 271
 ```
 其他的可以是MINUTE_OF_HOUR, MINUTE_OF_DAY, HOUR_OF_AMPM, HOUR_OF_DAY, AMPM_OF_DAY, DAY_OF_WEEK, DAY_OF_MONTH, DAY_OF_YEAR, MONTH_OF_YEAR, YEAR, OFFSET_SECONDS（UTC时间的位移）
 ##### 从LocalDateTime中获取LocalDate
-```
+```Java
 System.out.println(localDateTime.toLocalDate());
 // prints 2014-09-29
 ```
 ##### 从LocalDateTIme中获取LocalTime
-```
+```Java
 System.out.println(localDateTime.toLocalTime());
 // prints 22:26:30.146
 ```
 ##### 通过年月日时分创建LocalDateTime
-```
+```Java
 System.out.println(LocalDateTime.of(2014, 10, 1, 10, 0));
 // prints 2014-10-01T10:00
 ```
 ##### 通过解析字符串创建LocalDateTime
-```
+```Java
 LocalDateTime parsedLocalDateTime = LocalDateTime.parse("2014-01-01T11:00");
 ```
 ##### 创建另一个时区的LocalDateTime
-```
+```Java
 System.out.println(LocalDateTime.now(ZoneId.of("UTC")));
 // prints 2014-09-29T17:07:26.653 (the local timezone in UTC)
 ```
 ##### 通过Instant和时区创建LocalDateTime
-```
+```Java
 Instant now = Instant.now();
 System.out.println(LocalDateTime.ofInstant(now, ZoneId.of("UTC")));
 //2014-09-29T17:09:19.644
 ```
 ##### 创建ZonedDateTime
-```
+```Java
 ZonedDateTime zonedDateTime = ZonedDateTime.now();
 //2014-09-29T22:41:24.908+05:30[Asia/Calcutta]
 ```
@@ -118,18 +118,19 @@ System.out.println(zonedDateTime.until(ZonedDateTime.parse("2014-09-29T22:41:00-
 // prints the difference between the current zonedDateTime and the zonedatetime parsed from the above string
 ```
 ##### 获取当前ZoneDateTime的位移
-```
+```Java
 System.out.println(zonedDateTime.getOffset());
 // prints the offset e.g. +10:00
 ```
 ##### 使用DateTimeFormatter解析或者格式化时间
-```
+
+```Java
 System.out.println(zonedDateTime.format(DateTimeFormatter.ofPattern("'The' dd 'day of' MMM 'in year' YYYY 'and zone is' z")));
 // prints The 29 day of Sep in year 2014 and zone is IST
 ```
 ##### 将ZoneDateTime更改时区
 有两种方式可以完成这个任务，第一种不更改Instant更改时区，第二种更改时区不更改LocalTime
-```
+```Java
         System.out.println(zonedDateTime);
         System.out.println(zonedDateTime.toInstant());
         System.out.println(zonedDateTime.withZoneSameInstant(ZoneId.of("America/Chicago")));
