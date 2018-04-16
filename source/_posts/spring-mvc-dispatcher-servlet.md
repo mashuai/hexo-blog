@@ -8,7 +8,7 @@ tags:
 
 ##### 简介
 同许多其他的web框架一样，SpringMVC使用了前端控制器的设计模式，即一个以`DispatcherServlet`为核心的`Servlet`为处理请求提供了一个共享的算法，而实际的工作是由可配置的委托组件执行的。这个模式即灵活又支持多样的工作流。
-同其他的`Servlet`,依照Servlet 规范`DispatcherServlet`需要在web.xml或者Java配置中声明并映射URL。接着`DispatcherServlet`使用Spring的配置来找找委托组件，用来映射URL，解析视图，异常处理等。
+同其他的`Servlet`,依照Servlet 规范`DispatcherServlet`需要在web.xml或者Java配置中声明并映射URL。接着`DispatcherServlet`使用Spring的配置来查找委托组件，用来映射URL，解析视图，异常处理等。
 下面这个示例是使用Java配置来注册并初始化`DispatcherServlet`，这个类由Servlet容器自动发现。
 ```Java
 public class MyWebApplicationInitializer implements WebApplicationInitializer {
@@ -122,8 +122,8 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
 `DispatcherServlet`委托专用的bean来处理请求，渲染响应。专用的bean指的是Spring管理的，实现WebFlux框架约定的实例。这些bean一般都是内建的约定，但是可以定制他们的属性，扩展或者代替这些bean。
 
 bean 类型 | 解释
----------- | ---------:
-HandlerMapping | 将请求映射到指定处理器，这个处理器同时包含了一系列的拦截器用来处理处理前和处理后的请求。映射根据不同的条件来查找不同的处理器，具体细节由其实现决定。两个主要的`HandlerMapping`是支持注解`@RequestMapping`的`RequestMappingHandlerMapping`, 和直接将url和控制器映射的`SimpleUrlHandlerMapping`
+:---------- | :---------
+HandlerMapping | 映射根据不同的条件来查找不同的处理器，具体细节由其实现决定。两个重要的子类，支持注解`@RequestMapping`的`RequestMappingHandlerMapping`, 和直接将url和控制器映射的`SimpleUrlHandlerMapping`
 HandlerAdapter | 帮助`DispatcherServlet` 执行特定的处理器而无需知道这些处理器需要如何被执行。例如执行一个注解controller需要解析他的注解。`HandlerAdapter`的重要作用就是处理这些细节问题。
 HandlerExceptionResolver | 将异常重定向到其他处理器或者是显示HTML的错误界面。
 ViewResolver | 通过处理器返回的视图字符串查找具体的视图并渲染。 
@@ -230,7 +230,7 @@ SpringMVC 同样支持返回`last-modification-date`，对指定请求处理如�
 通过web.xml中Servlet的初始化参数可以定制DispatcherServlet.
 
 参数 | 解释 |
----------- | ---------:
+:---------- | :---------
 contextClass | 实现`WebApplicationContext`的类，默认使用`XmlWebApplicationContext` 
 contextConfigLocation | 传递给Context 实例的字符串，包括了bean的定义 
 namespace | `WebApplicationContext` 的命名空间，默认`[servlet-name]-servlet` 
@@ -248,7 +248,7 @@ namespace | `WebApplicationContext` 的命名空间，默认`[servlet-name]-serv
 下表是`HandlerExceptionResolver`的实现
 
  HandlerExceptionResolver | 描述 
----------- | ---------:
+:---------- | :---------
 SimpleMappingExceptionResolver | 异常类名和错误页面名的映射。浏览器渲染错误页面的时候非常实用 
 DefaultHandlerExceptionResolver | 解析SpringMVC抛出的异常，同时将其映射到HTTP的错误码上  
 ResponseStatusExceptionResolver | 解析@ResponseStatus注解，同时根据其注解值将其映射到HTTP的错误码上  
@@ -289,8 +289,8 @@ Spring MVC通过定义了`ViewResolver`和`View`两个接口可以让我们直�
 下列表格展示了ViewResolver的层级：
 
  ViewResolver | 描述 
----------- | ---------:
-AbstractCachingViewResolver | `AbstractCachingViewResolver`的子类缓存他解析的视图。缓存可以提高某些视图技术的性能。可以通过设置cache属性为false来关闭缓存。当然如果需要在运行时刷新缓存（例如 FreeMaker的template改变了）那么可以调用`removeFromCache(String viewName, Locale loc)`来刷新。
+:---------- | :---------
+AbstractCachingViewResolver | 缓存解析过的视图。可设置cache属性为false来关闭缓存。在需要刷新缓存的场景可以调用`removeFromCache(String viewName, Locale loc)`来刷新。
 XmlViewResolver | 实现`ViewResolver`，可以接收一个同Spring XML bean同DTD的xml配置文件。默认在/WEB-INF/views.xml
 ResourceBundleViewResolver | 解析定义在`ResourceBundle`中的视图，使用viewname.class作为视图类，viewname.url作为视图名
 UrlBasedViewResolver | 无需明确指定映射，直接通过解析url来查找视图名。
@@ -337,7 +337,7 @@ ContentNegotiatingViewResolver | 根据请求的文件名或者Accept来确定�
 CookieLocaleResolver的属性：
 
  名字 | 默认值 | 描述 
-:---------- | --------- | ----------
+:---------- | :--------- | :----------
 cookieName | classname + LOCALE | cookie名
 cookieMaxAge | Servlet容器默认值 | cookie生效时间
 cookiePath | / | cookie 保存位置
@@ -394,7 +394,7 @@ background=/themes/cool/img/coolBg.jpg
 ThemeResolver 的实现如下：
 
 Class | 描述 
----------- | ---------:
+:---------- | :---------
 FixedThemeResolver | 选中一个固定的主题，设置`defaultThemeName`属性
 SessionThemeResolver | 主题由用户session维护。每个session只需要设置一次
 CookieThemeResolver | 通过cookie选择主题
