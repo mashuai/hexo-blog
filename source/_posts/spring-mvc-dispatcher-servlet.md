@@ -234,6 +234,13 @@ SpringMVC 同样支持返回`last-modification-date`，对指定请求处理如�
 注意，`postHandle`方法很少使用`@ResponseBody`和`ResponseEntity`。因为响应已经在`postHandle`执行之前有`HandlerAdapter`返回了。意味着在`postHandle`的时候再修改响应已经晚了。对应这种场景可以继承`ResponseBodyAdvice`或者实现ControllerAdvice或者直接配置`RequestMappingHandlerAdapter`来实现。
 
 ##### 异常处理
-
+如果在请求映射或者处理请求的时候抛出异常，`DispatcherServelt`会委托`HandlerExceptionResolver`来解析异常并提供可选择的处理，即返一个错误响应。
+下表是`HandlerExceptionResolver`的实现
+| HandlerExceptionResolver | 描述 |
+| --- | --- |
+| SimpleMappingExceptionResolver | 异常类名和错误页面名的映射。浏览器渲染错误页面的时候非常实用 |
+| DefaultHandlerExceptionResolver | 解析SpringMVC抛出的异常，同时将其映射到HTTP的错误码上  |
+| ResponseStatusExceptionResolver | 解析@ResponseStatus注解，同时根据其注解值将其映射到HTTP的错误码上  |
+| ExceptionHandlerExceptionResolver | 调用@Controller 或者@ControllerAdvice 类中使用@ExceptionHandler注解的方法 |
 
 
