@@ -120,6 +120,7 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
 
 ##### 特殊的bean类型
 `DispatcherServlet`委托专用的bean来处理请求，渲染响应。专用的bean指的是Spring管理的，实现WebFlux框架约定的实例。这些bean一般都是内建的约定，但是可以定制他们的属性，扩展或者代替这些bean。
+
 bean 类型 | 解释
 ---------- | ---------:
 HandlerMapping | 将请求映射到指定处理器，这个处理器同时包含了一系列的拦截器用来处理处理前和处理后的请求。映射根据不同的条件来查找不同的处理器，具体细节由其实现决定。两个主要的`HandlerMapping`是支持注解`@RequestMapping`的`RequestMappingHandlerMapping`, 和直接将url和控制器映射的`SimpleUrlHandlerMapping`
@@ -227,6 +228,7 @@ public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
 在请求处理过程中如果出现了一场那么就可以使用`WebApplicatioContext`中的`HandlerExceptionResolver`来定制异常处理。
 SpringMVC 同样支持返回`last-modification-date`，对指定请求处理如何判断是否有`last-modification-date`非常直接：`DispatcherServlet`查找适合的处理器，并且检查其是否实现了`LastModified`接口，如果实现了，调用`long getLastModified(request)`返回给客户端。
 通过web.xml中Servlet的初始化参数可以定制DispatcherServlet.
+
 参数 | 解释 |
 ---------- | ---------:
 contextClass | 实现`WebApplicationContext`的类，默认使用`XmlWebApplicationContext` 
@@ -244,6 +246,7 @@ namespace | `WebApplicationContext` 的命名空间，默认`[servlet-name]-serv
 ##### 异常处理
 如果在请求映射或者处理请求的时候抛出异常，`DispatcherServelt`会委托`HandlerExceptionResolver`来解析异常并提供可选择的处理，即返一个错误响应。
 下表是`HandlerExceptionResolver`的实现
+
  HandlerExceptionResolver | 描述 
 ---------- | ---------:
 SimpleMappingExceptionResolver | 异常类名和错误页面名的映射。浏览器渲染错误页面的时候非常实用 
@@ -280,6 +283,7 @@ public class ErrorController {
     }
 }
 ```
+
 ##### 视图解析
 Spring MVC通过定义了`ViewResolver`和`View`两个接口可以让我们直接通过返回model来渲染视图，而不需要指定某一个特定的视图技术。`ViewResolver`提供了视图名和视图之间的映射关系。在提交给特定视图技术之前由`View`来准备数据。
 下列表格展示了ViewResolver的层级：
@@ -319,7 +323,8 @@ ContentNegotiatingViewResolver | 根据请求的文件名或者Accept来确定�
 这个解析器检查`accept-language`头，一般来说包含的是客户端操作系统的区域。注意这个不支持时区。
 ###### Cookie resolver
 这个解析器检查cookie中可能包含的`TimeZone`和`Locale`。通过如下定义来使用：
-```xml<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+```xml
+<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 
     <property name="cookieName" value="clientlanguage"/>
 
@@ -330,6 +335,7 @@ ContentNegotiatingViewResolver | 根据请求的文件名或者Accept来确定�
 ```
 
 CookieLocaleResolver的属性：
+
  名字 | 默认值 | 描述 
 ---------- | --------- | ----------:
 cookieName | classname + LOCALE | cookie名
@@ -361,6 +367,7 @@ cookiePath | / | cookie 保存位置
     </property>
 </bean>
 ```
+
 ##### 主题
 可以通过设置Spring MVC的主题来整体设置应用的外观，从而提高用户体验。主题是一些静态资源的集合，主要是可以影响外观的样式表和图片。
 为了应用主题，首先要设置一个`org.springframework.ui.context.ThemeSource`的接口。`WebApplicationContext`继承了`ThemeSource`，但是将其实现委托给了子类。默认使用的是`org.springframework.ui.context.support.ResourceBundleThemeSource`来从classpath的根目录下加载配置文件。配置文件格式如下：
@@ -385,6 +392,7 @@ background=/themes/cool/img/coolBg.jpg
 ###### 解析主题
 `DispatcherServlet`通过bean的名字`themeResolver`来查找`ThemeResolver`的实现。
 ThemeResolver 的实现如下：
+
 Class | 描述 
 ---------- | ---------:
 FixedThemeResolver | 选中一个固定的主题，设置`defaultThemeName`属性
@@ -414,5 +422,6 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 }
 ```
+
 Servlet 3.0配置好之后，只需要添加类型为`StandardServletMultipartResolver`，名字为`multipartResolver`的配置即可。
 
