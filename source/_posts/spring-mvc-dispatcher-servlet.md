@@ -337,7 +337,7 @@ ContentNegotiatingViewResolver | 根据请求的文件名或者Accept来确定�
 CookieLocaleResolver的属性：
 
  名字 | 默认值 | 描述 
----------- | --------- | ----------:
+:---------- | --------- | ----------
 cookieName | classname + LOCALE | cookie名
 cookieMaxAge | Servlet容器默认值 | cookie生效时间
 cookiePath | / | cookie 保存位置
