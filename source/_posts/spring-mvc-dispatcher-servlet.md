@@ -408,6 +408,7 @@ CookieThemeResolver | 通过cookie选择主题
   - 使用Java配置，在Servlet注册中设置`MultipartConfigElement`。
   - 使用web.xml 添加要给`<multipart-config>`的配置
 如下是使用Java的配置：
+
 ```Java
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
