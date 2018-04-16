@@ -59,9 +59,11 @@ public ModelAndView login(LoginData loginData) {
     }
 }
 ```
+
 `ModelAndView`保存了两个不同的对象：
   - Model： 用来渲染页面用的键值对的map
-  - View： 填充Model数据的模版页面。
+  - View： 填充Model数据的模版页面。  
+
 将它们合并起来是为了方便，这样controller的方法就可以同时返回这两个了。
 使用`Thymeleaf`作为模版引擎来渲染页面。  
 ##### Java Web应用的基础-Servlet
@@ -73,7 +75,7 @@ Spring Boot默认使用[Apache Tomcat](http://stackify.com/tomcat-performance-mo
 2017-10-16 20:36:11.626  INFO 57414 --- [main] 
   o.s.b.w.embedded.tomcat.TomcatWebServer  : 
   Tomcat initialized with port(s): 8080 (http)
-
+  
 2017-10-16 20:36:11.634  INFO 57414 --- [main] 
   o.apache.catalina.core.StandardService   : 
   Starting service [Tomcat]
@@ -92,14 +94,16 @@ Servlet是所有Java Web应用的核心组件；它非常的低成，并且没�
   - 将HTTP请求映射到响应处理函数
   - 将HTTP请求数据和header解析成数据传输对象（DTOs）或者领域对象
   - model-view-controller 互相交互
-  - 从DTO，领域对象等生成响应
+  - 从DTO，领域对象等生成响应  
+
 Spring的`DispatcherServlet`提供了以上的功能，是Spring WEB MVC框架的核心，是应用接受所有请求的核心组件。
 稍后就会了解到`DispatcherServlet`可扩展性非常强。例如：它允许你加入现有或者新的适配器来适应不同的任务：
   - 将请求映射到处理它的类或者函数(由`HandlerMapping`实现）
   - 使用特定模式来处理请求，例如一个普通的Servlet，一个复杂的MVC 工作流，或者只是一个方法。(由`HandlerAdapter`实现）
   - 通过名字解析试图对象，允许你使用不同的模版引擎，例如：XML，XSLT或者其他视图技术(由`ViewResolver`实现）
   - 默认使用Apache Comons 的文件上传组件解析文件上传，或者也可以自己实现。
-  - 由`LocalResolver`实现本地化，包括cookie，session，HTTP的Accept Header，或者其他由用户定义的本地化。
+  - 由`LocalResolver`实现本地化，包括cookie，session，HTTP的Accept Header，或者其他由用户定义的本地化。    
+
 ##### 处理HTTP请求
 首先让我们重新审视一下在刚刚建立的应用中是如何处理HTTP请求的。
 `DispatcherServlet`有一个很长的继承层级。自顶向下理解每个单独的概念是非常有必要的。处理请求的函数将会更加有趣。
@@ -132,6 +136,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
         // ...
     }
 ```
+
 ##### HttpServletBean
 在这个继承关系中`HttpServletBean`是第一个Spring的类。从web.xml或者WebApplicationInitialzer获取的初始参数来注入bean。
 在应用中的请求分别调用doGet,doPost等方法来处理不同的HTTP请求。
@@ -197,11 +202,13 @@ request.setAttribute(OUTPUT_FLASH_MAP_ATTRIBUTE, new FlashMap());
 `dispatch() `同时也可以处理一些其他的HTTP的任务：
   - 如果资源不存在，对GET请求进行短路处理。
   - 对相应的请求使用multipart 解析。
-  - 如果处理器选择异步处理请求，对请求进行短路处理。
+  - 如果处理器选择异步处理请求，对请求进行短路处理。  
+
 #####  处理请求
 现在Spring确定了处理请求的处理器和处理器的适配器，是时候处理请求了。下面是`HandlerAdapter.handle() `的签名。比较重要的一点是处理器可以选择如何处理请求：
   - 直接将相应写入到response body 和 返回null
-  - 返回一个`ModelAndView`对象由`DispatcherServlet`渲染。
+  - 返回一个`ModelAndView`对象由`DispatcherServlet`渲染。  
+
 ```Java
 @Nullable
 ModelAndView handle(HttpServletRequest request, 
@@ -264,7 +271,8 @@ ViewResolver的实现由很多，这里使用了由`thymeleaf-spring5`提供的`
 调用完`render()`之后，Spring就完成了将HTML页面渲染到用户浏览器的任务。
 ##### REST 支持
 除了MVC的场景，我们可以使用狂减创建rest web service。
-一个简单的场景，可以使用由`@RequestBody`修饰的POJO作为参数。由`@ResponseBody`修饰方法，指定方法的返回结果直接写入到响应体中。
+一个简单的场景，可以使用由`@RequestBody`修饰的POJO作为参数。由`@ResponseBody`修饰方法，指定方法的返回结果直接写入到响应体中。  
+
 ```Java
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -278,6 +286,7 @@ public MyOutputResource sendMessage(
       + inputResource.getRequestMessage());
 }
 ```
+
 感谢SpringMVC的扩展性，这样做也是可以的。
 框架使用`HttpMessageConverter`将内部DTO转换成REST的表示。例如：`MappingJackson2HttpMessageConverter`的可以使用Jackson库将转换model和JSON。
 为了简化创建REST API，Srping 引入了`@RestController`注解。默认使用`@ResonseBody`这样就不需要在每个方法中使用了。

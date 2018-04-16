@@ -29,6 +29,7 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
     }
 }
 ```
+
 下面这个示例是使用`web.xml`来注册并初始化的
 ```xml
 <web-app>
@@ -59,6 +60,7 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
 
 </web-app>
 ```
+
 ##### 层次结构
 `DispatcherServlet`需要一个扩展了的`ApplicationContext`的`WebApplicationContext`来配置自己的信息。`WebApplicationContext`包含了`Servlet`的`ServletContext`的引用，可以使用`RequestContextUtils`中的静态方法从`WebApplicationContext`中查找`ServletContext`。
 对于大多数应用来说一个`WebApplicationContext`就足够了。当然`WebApplicatioContext`也可以是有层次结构的，例如由多个Servlet共享的一个根`WebApplicationContext`，每个Servlet又有自己的子`WebApplicationContext`。
@@ -84,6 +86,7 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     }
 } 
 ```
+
 同样的，在web.xml中的配置
 ```xml
 <web-app>
@@ -114,6 +117,7 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
 
 </web-app>
 ```
+
 ##### 特殊的bean类型
 `DispatcherServlet`委托专用的bean来处理请求，渲染响应。专用的bean指的是Spring管理的，实现WebFlux框架约定的实例。这些bean一般都是内建的约定，但是可以定制他们的属性，扩展或者代替这些bean。
 | bean 类型 | 解释 |
@@ -148,6 +152,7 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
     }
 }
 ```
+
 `WebApplicationInitializer`是由SpringMVC提供的接口，用来保证上述实现可以由支持Servlet 3.0的容器自动检测并初始化。抽象类`AbstractDispatcherServletInitializerl`实现了`WebApplicationInitializer` 可以更加容易的注册`DispathcerServlet`。
 下面是使用Java配置的Spring
 ```Java
@@ -169,8 +174,9 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     }
 }
 ```
+
 如果使用的是xml配置，需要直接继承`AbstractDispatcherServletInitializer`
-```
+```Java
 public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
 
     @Override
@@ -191,6 +197,7 @@ public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
     }
 }
 ```
+
 `AbstractDispatcherServletInitializer`同样提供了一个方便的函数来添加过滤器。
 ```Java
 public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
@@ -204,6 +211,7 @@ public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
     }
 }
 ```
+
 每个过滤器根据他具体的类型添加一个默认的名字，并且自动映射到DispatcherServlet。
 `isAsyncSupported`方法是`AbstractDispatcherServletInitializer`的protect的方法，可以启动`DispatcherServlet`支持异步处理
 如果要定义自己的DispatcherServlet，那么可以重写`createDispatcherServlet`方法。
