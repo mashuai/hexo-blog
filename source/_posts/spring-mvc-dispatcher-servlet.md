@@ -123,8 +123,8 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
 
 bean 类型 | 解释
 :---------- | :---------
-HandlerMapping | 映射根据不同的条件来查找不同的处理器，具体细节由其实现决定。两个重要的子类，支持注解`@RequestMapping`的`RequestMappingHandlerMapping`, 和直接将url和控制器映射的`SimpleUrlHandlerMapping`
-HandlerAdapter | 帮助`DispatcherServlet` 执行特定的处理器而无需知道这些处理器需要如何被执行。例如执行一个注解controller需要解析他的注解。`HandlerAdapter`的重要作用就是处理这些细节问题。
+HandlerMapping | 处理器映射，具体由其子类实现。两个重要的子类，`RequestMappingHandlerMapping`,`SimpleUrlHandlerMapping`
+HandlerAdapter | 辅助`DispatcherServlet`执行特定的处理器。
 HandlerExceptionResolver | 将异常重定向到其他处理器或者是显示HTML的错误界面。
 ViewResolver | 通过处理器返回的视图字符串查找具体的视图并渲染。 
 LocaleResolver, LocaleContextResolver | 支持国际化页面，使用例如时区等来解析本地化问题。 
@@ -290,7 +290,7 @@ Spring MVC通过定义了`ViewResolver`和`View`两个接口可以让我们直�
 
  ViewResolver | 描述 
 :---------- | :---------
-AbstractCachingViewResolver | 缓存解析过的视图。可设置cache属性为false来关闭缓存。在需要刷新缓存的场景可以调用`removeFromCache(String viewName, Locale loc)`来刷新。
+AbstractCachingViewResolver | 缓存解析过的视图。可设置cache属性为false来关闭缓存。在需要刷新缓存的场景可调用`removeFromCache(String viewName, Locale loc)`刷新。
 XmlViewResolver | 实现`ViewResolver`，可以接收一个同Spring XML bean同DTD的xml配置文件。默认在/WEB-INF/views.xml
 ResourceBundleViewResolver | 解析定义在`ResourceBundle`中的视图，使用viewname.class作为视图类，viewname.url作为视图名
 UrlBasedViewResolver | 无需明确指定映射，直接通过解析url来查找视图名。
