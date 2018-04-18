@@ -6,6 +6,7 @@ tags:
   - Spring
 ---
 
+
 ##### 声明Controller
 Controller也是一个标准的Spring bean，可以在Servlet的`WebApplicationContext`中定义。也可以使用`@Controller`注解，Spring会扫描注解自动注册为Spring的bean。
 开启自动注册`@Controller`注解的bean可以使用如下Java Config的配置：
@@ -17,6 +18,7 @@ public class WebConfig {
     // ...
 }
 ```
+
 如果使用xml配置，如下：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -36,6 +38,7 @@ public class WebConfig {
 
 </beans>
 ```
+
 ##### 请求映射
 `@RequestMapping`可以将请求映射到具体的Controller方法上。通过找到匹配的url，http 方法，请求参数，header，媒体类型来映射请求。这个注解既可以用在类级别，也可以用在方法级别上。
 为了方便`@RequestMapping`根据HTTP方法不同提供了如下快捷注解：
@@ -63,18 +66,21 @@ class PersonController {
     }
 }
 ```
+
 ##### URI 模式
 请求映射支持glob模式和通配符
   - `?` 匹配一个字符
   - `*` 匹配0个或多个字符
   - `**` 匹配0个或多个路径
 可以通过`@PathVariable` 访问在URI中定义的变量：
+
 ```Java
 @GetMapping("/owners/{ownerId}/pets/{petId}")
 public Pet findPet(@PathVariable Long ownerId, @PathVariable Long petId) {
     // ...
 }
 ``` 
+
 URI的变量可以在类和方法中定义：
 ```Java
 @Controller
@@ -87,6 +93,7 @@ public class OwnerController {
     }
 }
 ```
+
 URI变量会自动类型转换，如果失败会抛出`TypeMismatchException`的异常。默认支持`int`,`long`,`Date`等类型，也可以通过DataBinder和 Type Conversion来注册其他需要支持的类型。
 URI变量名也可以明确的支持，例如`@PathVariable("customId")`，不过如果在编译的时候带着调试信息，或者对于Java8 使用`-parameters` 编译，则可以不需要明确的命名。
 语法`{varName:regex}`表示变量根据正则表达是来匹配，例如"/spring-web-3.0.5 .jar"可以使用以下表达式匹配
@@ -96,6 +103,7 @@ public void handle(@PathVariable String version, @PathVariable String ext) {
     // ...
 }
 ```
+
 URI同样可以有内嵌的`${}`的占位符，在应用启动的时候由`PropertyPlaceHolderConfigurer`从本地，系统，环境变量或者其他配置中解析。
 Spring MVC使用的是Spring core 中的`AntPathMatcher`来匹配路径。
 ##### 模式对比
@@ -122,6 +130,7 @@ public void addPet(@RequestBody Pet pet) {
     // ...
 }
 ```
+
 consumes也支持表达式求反操作，例如`!text/plain`指的就除了`text/plain`都可以。
 可以定义一个类级别的consumes，其方法共享这个consumes，和其他的`@ReqeustMapping`的属性不同，方法的consumes会覆盖类的定义。
 ##### 可产生的媒体类型
@@ -133,6 +142,7 @@ public Pet getPet(@PathVariable String petId) {
     // ...
 }
 ```
+
 媒体类型可以指定一个字符集。对表达式取反也是支持的，例如：`!text/plain`指的就是除了`text/plain`都可以。
 和consumes一样，也可以指定一个类级别的produces，其方法属性也会覆盖类的属性。
 ##### 参数和HTTP header
@@ -143,6 +153,7 @@ public void findPet(@PathVariable String petId) {
     // ...
 }
 ```
+
 同样的情况也适合HTTP header
 ```Java
 @GetMapping(path = "/pets", headers = "myHeader=myValue")
