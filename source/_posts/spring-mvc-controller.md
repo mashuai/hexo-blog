@@ -79,7 +79,7 @@ class PersonController {
 public Pet findPet(@PathVariable Long ownerId, @PathVariable Long petId) {
     // ...
 }
-``` 
+```
 
 URI的变量可以在类和方法中定义：
 ```Java
